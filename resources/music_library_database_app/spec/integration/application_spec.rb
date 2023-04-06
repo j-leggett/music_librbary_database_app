@@ -17,7 +17,7 @@ describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to include("Title: Surfer Rosa")
-      expect(response.body).to include("Released: 1989")
+      expect(response.body).to include("Released: 1988")
       expect(response.body).to include("Title: Waterloo")
       expect(response.body).to include("Released: 1974")
     end
@@ -28,10 +28,13 @@ describe Application do
     it 'returns 200 OK' do
       # Assuming the post with id 1 exists.
       response = post("/albums", title: "Voyage", release_year: "2022", artist_id: "2" )
-      albums = get('/albums')
+    
 
       expect(response.status).to eq(200)
-      expect(albums.body).to eq ("Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring, Voyage")
+      response = get('/albums')
+      expect(response.body).to include('Title: Voyage')
+      expect(response.body).to include('Released: 2022')
+
     end
 
   end
@@ -62,7 +65,7 @@ describe Application do
   end
 
   context "GET albums/:id" do
-    it "retusn the html content for a single album" do
+    it "return the html content for a single album" do
       
       response = get('/albums/2')
 
