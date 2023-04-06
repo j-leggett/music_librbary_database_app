@@ -63,17 +63,12 @@ describe Application do
   context "GET albums/:id" do
     it "retusn the html content for a single album" do
       
-      response = get('albums/:id=1')
+      response = get('/albums/2')
 
       expect(response.status).to eq 200
-      expect(response.body).to include("    <h1>
-      Title: <%= @title %=>
-      </h1>
-      <p>
-      Release year:<%= @release_year %=>
-      Artist: <%= @artist %=>
-      </p>")
-
+      expect(response.body).to include("<h1>Surfer Rosa</h1>")
+      expect(response.body).to include("Artist: Pixies")
+      expect(response.body).to include("Release year: 1988")
     end
   end
 
