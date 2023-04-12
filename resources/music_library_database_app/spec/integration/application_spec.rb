@@ -22,14 +22,17 @@ describe Application do
   end
 
   context "POST /albums" do
-    it 'returns 200 OK' do
+    it 'should create am album and return confirmation page' do
       # Assuming the post with id 1 exists.
-      response = post("/albums", title: "Voyage", release_year: "2022", artist_id: "2" )
+      response = post("/albums", title: "example", release_year: "1700", artist_id: "7" )
     
 
       expect(response.status).to eq(200)
+      expect(response.body).to include('<h1> Album Added </h1>')
+
       response = get('/albums')
-      expect(response.body).to include('Voyage')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('example')
 
     end
 
@@ -71,6 +74,17 @@ describe Application do
     end
   end
 
+  context "GET albums/new" do
+    it "should add a new album" do
+
+      response = get('/albums/new')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include('<form action="/albums" method="POST">')
+    end
+  end
+
+
   context "GET albums/:id" do
     it "returns the html content for a single album" do
 
@@ -83,6 +97,7 @@ describe Application do
 
     end
   end
+
 
 
 end
