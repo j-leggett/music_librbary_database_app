@@ -38,6 +38,16 @@ describe Application do
 
   end
 
+  context "GET /artists/new" do
+    it "should add a new artist" do
+
+      response = get('artists/new')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include('<form action="/artists" method="POST">')
+    end
+  end
+
   context "GET /artists" do
     it 'returns 200 OK' do
       # Assuming the post with id 1 exists.

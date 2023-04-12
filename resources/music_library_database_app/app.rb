@@ -53,6 +53,7 @@ class Application < Sinatra::Base
     new_artist.genre = params[:genre]
 
     repo.create(new_artist)
+    return erb(:added_artist)
   end
 
   get "/albums/new" do
@@ -72,6 +73,10 @@ class Application < Sinatra::Base
     return erb(:index)
 
 
+  end
+
+  get '/artists/new' do
+    return erb(:new_artist)
   end
 
 
