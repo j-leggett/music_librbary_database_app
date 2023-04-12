@@ -4,9 +4,8 @@
     <h1>Albums</h1>
     <div>
       <% @music.each do |album| %>
+      <a href="/albums/<%= album.id %>"><%= album.title %></a><br />
       
-        Title: <%= album.title %>
-        Released: <%= album.release_year %>
       
     <% end %>      
     </div>

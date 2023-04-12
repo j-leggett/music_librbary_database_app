@@ -16,10 +16,7 @@ describe Application do
       response = get('/albums')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include("Title: Surfer Rosa")
-      expect(response.body).to include("Released: 1988")
-      expect(response.body).to include("Title: Waterloo")
-      expect(response.body).to include("Released: 1974")
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a><br />')
     end
 
   end
@@ -32,8 +29,7 @@ describe Application do
 
       expect(response.status).to eq(200)
       response = get('/albums')
-      expect(response.body).to include('Title: Voyage')
-      expect(response.body).to include('Released: 2022')
+      expect(response.body).to include('Voyage')
 
     end
 
@@ -44,10 +40,9 @@ describe Application do
       # Assuming the post with id 1 exists.
       response = get('/artists')
 
-      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos"
 
       expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+      expect(response.body).to include('<a href="/artists/1">Pixies</a><br />')
     end
   end
 
@@ -75,5 +70,19 @@ describe Application do
       expect(response.body).to include("Release year: 1988")
     end
   end
+
+  context "GET albums/:id" do
+    it "returns the html content for a single album" do
+
+      response = get('/artists/2')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include("<h1>ABBA</h1>")
+      expect(response.body).to include("Genre: Pop")
+    
+
+    end
+  end
+
 
 end
