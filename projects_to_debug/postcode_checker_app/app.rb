@@ -13,7 +13,12 @@ class Application < Sinatra::Base
   end
 
   get '/check' do
-    valid = PostcodeChecker.new.valid?(params[:postcode])
+    @valid = PostcodeChecker.new.valid?(params[:postcode])
+    return erb(:check)
+  end
+
+  post '/check' do
+    @valid = PostcodeChecker.new.valid?(params[:postcode])
     return erb(:check)
   end
 end
